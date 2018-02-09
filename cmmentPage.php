@@ -34,7 +34,7 @@ while ($row = $commText->fetch()) {
 ?>
 </p>
 <form action='addComm.php?id={$id}' method="post">
-    <label> Имя того кто вносит коментарий <input name='author_comm' required></label>
+    <label> Автор коментария <input name='author_comm' required></label>
     <label> Текст комментария <input name='text_comment' required> </label>
 
 
