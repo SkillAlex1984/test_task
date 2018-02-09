@@ -2,10 +2,7 @@
 
 try {
     //$id = @$_POST['id'];
-    //if(empty($id){
-    //echo "<typescript>alert('no id - pipec')</typescript><br>";
-    //exit(1);
-    //}
+    
 
     $dbconToComm = new PDO
     ('mysql:host=localhost; dbname=comments', 'root', '');
