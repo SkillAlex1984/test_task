@@ -9,7 +9,7 @@
 <h1>Здесь будет список комментариев</h1>
 
 <p style="border: 4px double black;"><strong>Список популярное” из 5 самых коментируемых
-        записей только здесь надо переделать селект по колву коментариев:</strong><br>
+        Здесь не поправил SELECT сгрупирую по post_id и в HEVING посчитаю count</strong><br>
 
     <?php
 
@@ -23,13 +23,14 @@
     ?>
 </p>
 
-<p style="border: 4px double black;"><strong>Список всех записей только здесь надо переделать селект по колву коментариев:</strong><br>
+<p style="border: 4px double black;"><strong>Список всех постов:</strong><br>
     <?php
     $dbcon = new PDO
     ('mysql:host=localhost; dbname=comments', 'root', '');
     $dataAllList = $dbcon->query('SELECT * from posts ORDER BY date DESC');
     $dataAllList->setFetchMode(PDO::FETCH_ASSOC);
     $piseText = '';
+    // не добавил вывод кол-ва комментариев
     while ($row = $dataAllList->fetch()) {
         $piseText = substr($row['text_comment'], 0, 10);
         echo "Дата:" . $row['date'] . $row['name'] . $piseText . "<br>" . "<a href='cmmentPage.php?id={$row['id']}'> Подробнее </a>" . "<br>";
@@ -40,7 +41,7 @@
 
 <form action='addRow.php' method="post">
     <label> Имя <input name='user_name' required></label>
-    <label> Комментарий <input name='comment' required> </label>
+    <label> Пост <input name='comment' required> </label>
 
     <button type="submit"> Сохранить</button>
 
