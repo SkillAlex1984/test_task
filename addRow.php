@@ -1,6 +1,7 @@
 <?php
 
 try {
+    //соединение с БД
     $dbcon = new PDO
     ('mysql:host=localhost; dbname=comments', 'root', '');
     $dbcon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
