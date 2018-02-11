@@ -22,5 +22,4 @@ try {
 }
 unset($dbcon);
 header('Location: index.php');
-include 'form.php';
 ?>
