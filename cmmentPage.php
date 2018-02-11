@@ -1,43 +1,42 @@
 <h1>Полный текст поста</h1>
-<div class="row">
-    <div class="col-xs-6">
-        <?php
-        include 'base.html';
-        $id = $_GET['id'];
-        $dbcon = new PDO
-        ('mysql:host=localhost; dbname=comments', 'root', '');
-        $commText = $dbcon->query("SELECT * from posts WHERE id = {$id}");
-        $commText->setFetchMode(PDO::FETCH_ASSOC);
-        $piseText = '';
-        while ($row = $commText->fetch()) {
-            echo "Автор поста:" . $row['name'] . "<br>" . $row['text_comment'] . "<br>";
-        }
-        ?>
-    </div>
-    <div class="col-xs-6">
-        <h2>Комментрий к посту</h2>
+<p style="border: 4px double black; width: 600px">пост
+    <?php
+    $id = $_GET['id'];
+    $dbcon = new PDO
+    ('mysql:host=localhost; dbname=comments', 'root', '');
+    $commText = $dbcon->query("SELECT * from posts WHERE id = {$id}");
+    $commText->setFetchMode(PDO::FETCH_ASSOC);
+    $piseText = '';
+    while ($row = $commText->fetch()) {
 
-        <?php
-        $id = $_GET['id'];
-        $dbcon = new PDO
-        ('mysql:host=localhost; dbname=comments', 'root', '');
-        $commText = $dbcon->query("SELECT * FROM commenttopost 
+        echo "Дата:" . $row['date'] . $row['name'] . $row['text_comment'] . "<br>" . "<br>";
+    }
+    //var_export($commText);
+    ?>
+</p>
+
+<h2 align="right">Комментрий к посту</h2>
+
+<?php
+$id = $_GET['id'];
+$dbcon = new PDO
+('mysql:host=localhost; dbname=comments', 'root', '');
+$commText = $dbcon->query("SELECT text FROM commenttopost 
                                      JOIN posts p ON commenttopost.post_id = p.id 
                                      WHERE commenttopost.post_id = {$id}");
-        $commText->setFetchMode(PDO::FETCH_ASSOC);
+$commText->setFetchMode(PDO::FETCH_ASSOC);
 
-        while ($row = $commText->fetch()) {
+while ($row = $commText->fetch()) {
 
-            echo "Имя: " . $row['nameCom'] . "Текст комментария: " . $row['text'] . "<br>";
-        }
-        ?>
-    </div>
-</div>
+    echo $row['text'] . "<br>";
+}
 
-
-<form action='addComm.php' method="post">
+?>
+</p>
+<form action='addComm.php?id={$id}' method="post">
     <label> Автор коментария <input name='author_comm' required></label>
     <label> Текст комментария <input name='text_comment' required> </label>
-    <input hidden name="post_id" value=<?= $id ?>>
+
+
     <button type="submit"> Добавить комментарий</button>
 </form>
