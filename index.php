@@ -6,10 +6,9 @@
 
 </head>
 <body>
-<h1>Здесь будет список комментариев</h1>
+<h1>Cписок комментариев</h1>
 
-<p style="border: 4px double black;"><strong>Список популярное” из 5 самых коментируемых
-        Здесь не поправил SELECT сгрупирую по post_id и в HEVING посчитаю count</strong><br>
+<p style="border: 4px double black;"><strong>Список популярное:</strong><br>
 
     <?php
 
@@ -30,7 +29,7 @@
     $dataAllList = $dbcon->query('SELECT * from posts ORDER BY date DESC');
     $dataAllList->setFetchMode(PDO::FETCH_ASSOC);
     $piseText = '';
-    // не добавил вывод кол-ва комментариев
+    
     while ($row = $dataAllList->fetch()) {
         $piseText = substr($row['text_comment'], 0, 10);
         echo "Дата:" . $row['date'] . $row['name'] . $piseText . "<br>" . "<a href='cmmentPage.php?id={$row['id']}'> Подробнее </a>" . "<br>";
