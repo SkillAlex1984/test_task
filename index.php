@@ -34,12 +34,17 @@ while ($row = $data->fetch()) {
     <?php
     $dbcon = new PDO
     ('mysql:host=localhost; dbname=comments', 'root', '');
-    $dataAllList = $dbcon->query('SELECT * from posts ORDER BY date DESC');
+    $dataAllList = $dbcon->query('SELECT p.id, p.date, p.name, p.text_comment, COUNT(c.post_id) as  cnt FROM posts as p
+                                            JOIN commenttopost as c ON p.id = c.post_id
+                                            GROUP BY p.id, p.date, p.name, p.text_comment                                           
+                                            ');
     $dataAllList->setFetchMode(PDO::FETCH_ASSOC);
     $piseText = '';
     while ($row = $dataAllList->fetch()) {
         $piseText = substr($row['text_comment'], 0, 100);
-        echo "Дата:" . $row['date'] . $row['name'] . $piseText . "<br>" . "<a href='cmmentPage.php?id={$row['id']}'> Подробнее </a>" . "<br>";
+        echo "Дата:" . $row['date'] . $row['name'] . $piseText . " Колличество комментариев " . $row['cnt'] . "<br>"
+            . "<a href='cmmentPage.php?id={$row['id']}'> Подробнее </a>" . "<br>";
+
     }
     ?>
 
@@ -54,3 +59,4 @@ while ($row = $data->fetch()) {
 </form>
 </body>
 </html>
+
